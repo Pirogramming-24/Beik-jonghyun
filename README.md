@@ -20,6 +20,8 @@
 - Python
 - Django
 - Git/Github
+- C++/C
+- JAVA
 
 ### 📫 프로필
 - 이름: 백종현
