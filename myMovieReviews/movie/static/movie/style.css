@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #ff4d6d;
+}
+
+.add-btn {
+    text-decoration: none;
+    color: #555;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    background-color: #f3f3f3;
+    width: 600px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.card-title {
+    text-align: center;
+    color: #ff4d6d;
+}
+
+.card-title span {
+    color: black;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    width: 100px;
+    font-weight: bold;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    flex: 1;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+.btn-area {
+    text-align: right;
+    margin-top: 20px;
+}
+
+button {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.review-card {
+    margin-top: 30px;
+}
+
+.review-content {
+    line-height: 1.6;
+}

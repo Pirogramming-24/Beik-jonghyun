@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Review</title>
+    <link rel="stylesheet" href="{% static 'movie/style.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1 class="logo">
+            <a href="{% url 'movie:list' %}">
+                my<span>Movie</span>reviews
+            </a>
+        </h1>
+        <a href="{% url 'movie:create' %}" class="add-btn">Add a New review</a>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h2 class="card-title">Movie<span>review</span> 🍿</h2>
+            <hr>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <label>제목:</label>
+                    <input type="text" name="title" value="{{ movie.title|default:'' }}">
+                </div>
+
+                <div class="form-row">
+                    <label>개봉년도:</label>
+                    <input type="number" name="year" value="{{ movie.year|default:'' }}">
+                </div>
+
+                <div class="form-row">
+                    <label>장르:</label>
+                    <select name="genre">
+                        <option>---------</option>
+                        <option value="Action">Action</option>
+                        <option value="SF">SF</option>
+                        <option value="Drama">Drama</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label>별점:</label>
+                    <input type="number" step="0.5" name="rating" value="{{ movie.rating|default:'' }}">
+                </div>
+
+                <div class="form-row">
+                    <label>러닝타임:</label>
+                    <input type="number" name="runtime" value="{{ movie.runtime|default:'' }}">
+                </div>
+
+                <div class="form-row">
+                    <label>리뷰:</label>
+                    <textarea name="content">{{ movie.content|default:'' }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>감독:</label>
+                    <input type="text" name="director" value="{{ movie.director|default:'' }}">
+                </div>
+
+                <div class="form-row">
+                    <label>배우:</label>
+                    <input type="text" name="actor" value="{{ movie.actor|default:'' }}">
+                </div>
+
+                <div class="btn-area">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>

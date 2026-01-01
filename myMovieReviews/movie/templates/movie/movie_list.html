@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Reviews</title>
+    <link rel="stylesheet" href="{% static 'movie/style.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1 class="logo">
+            <a href="{% url 'movie:list' %}">
+                my<span>Movie</span>reviews
+            </a>
+        </h1>
+        <a href="{% url 'movie:create' %}" class="add-btn">Add a New review</a>
+    </header>
+
+    <main class="container">
+        {% for movie in movies %}
+        <div class="card list-card">
+            <h2 class="card-title">
+                <a href="{% url 'movie:detail' movie.id %}">
+                    {{ movie.title }}
+                </a>
+            </h2>
+
+            <p class="meta">
+                개봉년도 {{ movie.year }} |
+                장르 {{ movie.genre }} |
+                별점 {{ movie.rating }}
+            </p>
+
+        </div>
+        {% empty %}
+        <p>아직 리뷰가 없습니다.</p>
+        {% endfor %}
+    </main>
+
+</body>
+
+</html>

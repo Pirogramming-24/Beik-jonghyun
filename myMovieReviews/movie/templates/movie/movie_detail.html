@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }}</title>
+    <link rel="stylesheet" href="{% static 'movie/style.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1 class="logo">
+            <a href="{% url 'movie:list' %}">
+                my<span>Movie</span>reviews
+            </a>
+        </h1>
+        <a href="{% url 'movie:create' %}" class="add-btn">Add a New review</a>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h2 class="card-title">{{ movie.title }}</h2>
+            <hr>
+
+            <p><strong>개봉년도:</strong> {{ movie.year }}</p>
+            <p><strong>감독:</strong> {{ movie.director }}</p>
+            <p><strong>주연:</strong> {{ movie.actor }}</p>
+            <p><strong>장르:</strong> {{ movie.genre }}</p>
+            <p><strong>별점:</strong> {{ movie.rating }}</p>
+            <p><strong>러닝타임:</strong> {{ movie.runtime }} 분</p>
+
+
+            <div class="review-content">
+                <p>{{ movie.content }}</p>
+            </div>
+
+            <div class="btn-area">
+                <a href="{% url 'movie:update' movie.id %}" class="add-btn">수정</a>
+                <a href="{% url 'movie:delete' movie.id %}" class="add-btn" onclick="return confirm('삭제할까요?')">
+                    삭제
+                </a>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
