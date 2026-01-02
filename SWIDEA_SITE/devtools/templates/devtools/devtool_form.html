@@ -1,0 +1,28 @@
+{% extends "idea/base.html" %}
+
+{% block content %}
+<h1>{% if devtool %}개발툴 수정{% else %}개발툴 생성{% endif %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <p>
+        이름:
+        <input type="text" name="name" value="{{ devtool.name|default:'' }}">
+    </p>
+
+    <p>
+        종류:
+        <input type="text" name="kind" value="{{ devtool.kind|default:'' }}">
+    </p>
+
+    <p>
+        설명:
+        <textarea name="content">{{ devtool.content|default:'' }}</textarea>
+    </p>
+
+    <button type="submit">저장</button>
+</form>
+
+<a href="{% url 'devtools:list' %}">← 목록</a>
+{% endblock %}

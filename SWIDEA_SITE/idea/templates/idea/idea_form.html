@@ -1,0 +1,51 @@
+{% extends 'idea/base.html' %}
+
+{% block content %}
+
+<h2>
+    {% if mode == 'create' %}
+    아이디어 등록
+    {% else %}
+    아이디어 수정
+    {% endif %}
+</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>
+        <label>아이디어명:</label><br>
+        {{ form.title }}
+    </p>
+
+    <p>
+        <label>아이디어 설명:</label><br>
+        {{ form.content }}
+    </p>
+
+    <p>
+        <label>관심도:</label><br>
+        {{ form.interest }}
+    </p>
+
+    <p>
+        <label>예상 개발툴:</label><br>
+        {{ form.devtool }}
+    </p>
+
+    <p>
+        <label>이미지 업로드:</label><br>
+        {{ form.image }}
+    </p>
+
+    {% if form.instance.image %}
+    <p>현재 이미지:</p>
+    <img src="{{ form.instance.image.url }}" style="max-width:200px;">
+    {% endif %}
+
+    <button type="submit">저장</button>
+</form>
+
+<a href="{% url 'idea:list' %}">← 목록으로</a>
+
+{% endblock %}
