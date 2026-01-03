@@ -1,0 +1,92 @@
+{% extends "idea/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>아이디어 목록</h1>
+
+    <div class="sort-area">
+        <span>정렬 기준: </span>
+        <a href="?sort=recent">최신순</a> |
+        <a href="?sort=old">등록순</a> |
+        <a href="?sort=name">이름순</a> |
+        <a href="?sort=star">찜하기순</a>
+    </div>
+
+    <hr>
+
+    <div class="action-area">
+        <a href="{% url 'idea:create' %}">➕ 아이디어 추가</a>
+    </div>
+
+    <ul class="idea-list">
+        {% for idea in ideas %}
+        <li class="idea-item">
+            <div class="thumbnail-area">
+                {% if idea.image %}
+                <img src="{{ idea.image.url }}" alt="{{ idea.title }}" class="thumb-img" width="150" height="150">
+                {% else %}
+                <div class="no-img">No Image</div>
+                {% endif %}
+
+                <button class="star-btn" onclick="toggleStar(this, '{{ idea.id }}')">
+                    {% if idea.is_starred %}★{% else %}☆{% endif %}
+                </button>
+            </div>
+
+            <div class="info-area">
+                <h3><a href="{% url 'idea:detail' idea.id %}">{{ idea.title }}</a></h3>
+
+                <p>개발툴: {{ idea.devtool.name|default:"미정" }}</p>
+
+                <p class="interest-box">
+                    관심도: <span id="interest-{{ idea.id }}">{{ idea.interest }}</span>
+                    <button onclick="updateInterest('{{ idea.id }}', 'up')">+</button>
+                    <button onclick="updateInterest('{{ idea.id }}', 'down')">-</button>
+                </p>
+            </div>
+        </li>
+        {% empty %}
+        <li>등록된 아이디어가 없습니다.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    function updateInterest(id, direction) {
+        const url = `interest/${id}/${direction}/`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(`#interest-${id}`).innerText = data.interest;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function toggleStar(btn, id) {
+        const url = `star/${id}/`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (btn.innerText.trim() === '☆') {
+                    btn.innerText = '★';
+                } else {
+                    btn.innerText = '☆';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+{% endblock %}

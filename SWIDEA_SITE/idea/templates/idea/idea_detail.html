@@ -1,0 +1,34 @@
+{% extends "idea/base.html" %}
+
+{% block content %}
+<div class="detail-container">
+    <h1>{{ idea.title }}</h1>
+
+    <div class="detail-info">
+        <p><strong>등록일:</strong> {{ idea.created_at|date:"Y-m-d" }}</p>
+        <p><strong>개발툴:</strong> {{ idea.devtool.name|default:"미정" }}</p>
+        <p><strong>관심도:</strong> {{ idea.interest }}</p>
+    </div>
+
+    <div class="detail-image">
+        {% if idea.image %}
+        <img src="{{ idea.image.url }}" alt="{{ idea.title }}" width="300">
+        {% else %}
+        <p>이미지가 없습니다.</p>
+        {% endif %}
+    </div>
+
+    <div class="detail-content">
+        <h3>아이디어 설명</h3>
+        <p>{{ idea.content }}</p>
+    </div>
+
+    <hr>
+
+    <div class="detail-buttons">
+        <a href="{% url 'idea:update' idea.id %}">✏ 수정</a>
+        <a href="{% url 'idea:delete' idea.id %}" onclick="return confirm('정말 삭제하시겠습니까?');">🗑 삭제</a>
+        <a href="{% url 'idea:list' %}">📋 목록으로</a>
+    </div>
+</div>
+{% endblock %}
